@@ -5,7 +5,7 @@ function ActorDetailPage() {
 
 	return (
 		<>
-			<h1>Movie Details</h1>
+			<h1>The Actor Details</h1>
 			<p>{params.actorId}</p>
 			<p><Link to='..' relative='path'>Back</Link></p>
 		</>

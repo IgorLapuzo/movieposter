@@ -20,6 +20,15 @@ const router = createBrowserRouter([
       { 
         path: 'movies',
         element: <MoviesRootLayout />,
+        loader: async() => {
+          const response = await fetch('')
+          if (!response.ok) {
+            //...
+          } else {
+            const resData = await response.json();
+            return resData
+          }
+        },
         children: [
           { index: true, element: <MoviesPage />},
           { path: ':movieId', element: <MovieDetailPage />},
