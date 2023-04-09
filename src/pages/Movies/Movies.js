@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
+const MoviesPage = ({ currentPage, totalItemsCount, pagesSize, onPageChanged, movies, ...props }) => {
 
-function MoviesPage() {
 	return (
 		<>
 			<h1>The Movies page</h1>

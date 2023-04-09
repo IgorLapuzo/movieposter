@@ -44,4 +44,3 @@ export const getMovies = (page, pagesSize) => {
 }
 
 export default moviesReducer;
-

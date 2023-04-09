@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import HomePage from "./pages/Home";
-import MoviesPage from "./pages/Movies";
+import MoviesPage from "./pages/Movies/Movies";
 import MovieDetailPage from "./pages/MovieDetail";
 import RootLayout from "./pages/Root";
 import MoviesRootLayout from "./pages/MoviesRoot";
@@ -20,15 +20,6 @@ const router = createBrowserRouter([
       { 
         path: 'movies',
         element: <MoviesRootLayout />,
-        loader: async() => {
-          const response = await fetch('')
-          if (!response.ok) {
-            //...
-          } else {
-            const resData = await response.json();
-            return resData
-          }
-        },
         children: [
           { index: true, element: <MoviesPage />},
           { path: ':movieId', element: <MovieDetailPage />},
