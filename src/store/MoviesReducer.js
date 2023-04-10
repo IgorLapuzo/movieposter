@@ -2,10 +2,11 @@ import { movieAPI } from '../api/api';
 
 let initialState = {
 	movies: [],
-	pagesSize: 10,
-	totalItemsCount: 0,
+	totalPagesCount: 1,
 	currentPage: 1,
 	isFetching: false,
+	moviesFilter: 'popular',
+	movie: null,
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -16,11 +17,17 @@ const moviesReducer = (state = initialState, action) => {
 		case 'SET-CURRENT-PAGE': {
 			return { ...state, currentPage: action.currentPage}
 		}
-		case 'SET-TOTAL-COUNT': {
-			return { ...state, totalItemsCount: action.totalItemsCount}
+		case 'SET-TOTAL-PAGES-COUNT': {
+			return { ...state, totalPagesCount: action.totalPagesCount}
 		}
 		case 'TOGGLE-IS-FETCHING': {
 			return { ...state, isFetching: action.isFetching}
+		}
+		case 'SET-MOVIE': {
+			return {...state, movie: action.movie}
+		}
+		case 'SET-MOVIES-FILTER': {
+			return { ...state, moviesFilter: action.moviesFilter}
 		}
 		default: 
 			return state;
@@ -29,18 +36,25 @@ const moviesReducer = (state = initialState, action) => {
 
 export const setMovies = (movies) => ({ type: 'SET-MOVIES', movies});
 export const setCurrentPage = (currentPage) => ({ type: 'SET-CURRENT-PAGE', currentPage});
-export const setTotalItemsCount = (totalItemsCount) => ({ type: 'SET-TOTAL-COUNT', totalItemsCount});
+export const setTotalPagesCount = (totalPagesCount) => ({ type: 'SET-TOTAL-PAGES-COUNT', totalPagesCount});
 export const setToggleFetching = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching});
+export const setMovie = (movie) => ({type: 'SET-MOVIE', movie});
+export const setMoviesFilter = (moviesFilter) => ({ type: 'SET-MOVIES-FILTER', moviesFilter});
 
-export const getMovies = (page, pagesSize) => {
+export const requestMovies = (page) => {
 	return async (dispatch) => {
 		dispatch(setToggleFetching(true));
 		dispatch(setCurrentPage(page))
-		let data = await movieAPI.getMovies(page, pagesSize)
+		let data = await movieAPI.getMovies(page )
 		dispatch(setToggleFetching(false));
-		dispatch(setMovies(data.items));
-		dispatch(setTotalItemsCount(data.totalCount));
+		dispatch(setMovies(data.results));
+		dispatch(setTotalPagesCount(data.total_pages));
 	}
+}
+
+export const getMovie = (movieId) => async (dispatch) => {
+	let response = await movieAPI.getMovie(movieId);
+	dispatch(setMovie (response.data));
 }
 
 export default moviesReducer;

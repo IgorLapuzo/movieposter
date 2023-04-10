@@ -1,0 +1,49 @@
+.paginatorWraper {
+	text-align: center;
+}
+
+.movie-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.wrapper {
+	padding: 2rem;
+}
+
+.item {
+	border: 1px solid #ccc;
+	border-radius: 12px;
+}
+
+.item a {
+	font-size: 1.2rem;
+	color: black;
+	text-decoration: none;
+}
+
+.item img {
+	border-radius: 12px 12px 0 0;
+}
+
+.description {
+	display: flex;
+	justify-content: space-between;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+.item :hover {
+	border-radius: 12px 12px 0 0;
+	animation: fade .2s linear forwards;
+	background-color: rgba(0, 0, 0, 1);
+}

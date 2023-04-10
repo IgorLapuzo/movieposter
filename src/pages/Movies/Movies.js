@@ -1,19 +1,66 @@
-import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Paginator from '../../components/Paginator'
+import Preloader from '../../components/Preloader';
+import noImage from '../../assets/noImage.jpg'
+import MoviesSearchForm from '../../components/MoviesSearchForm';
+import { FilterType, requestMovies } from '../../store/MoviesReducer' 
+import { getCurrentPage, getIsFetching, getTotalPagesCount, getMovies, getMoviesFilter } from '../../store/movies-selectors';
+import classes from './Movies.module.css'
 
-const MoviesPage = ({ currentPage, totalItemsCount, pagesSize, onPageChanged, movies, ...props }) => {
+export const MoviesPage = (props) => {
+
+	const movies = useSelector(getMovies)
+	const totalPagesCount = useSelector(getTotalPagesCount)
+	const currentPage = useSelector(getCurrentPage)
+	const filter = useSelector(getMoviesFilter)
+	const isFetching = useSelector(getIsFetching)
+
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(requestMovies(currentPage, filter))
+	}, [])
+
+	const onPageChanged = (pageNumber) => {
+		dispatch(requestMovies(pageNumber, filter))
+	}
+
+	const onFilterChanged = (filter) => {
+		dispatch(requestMovies(1, filter))
+	}
 
 	return (
-		<>
+		<div className={classes.wrapper}>
+			{ isFetching ? <Preloader /> : null }
 			<h1>The Movies page</h1>
-			<ul>
+			<MoviesSearchForm onFilterChanged={onFilterChanged} />
+			
+			<ul className={classes['movie-list']}>
 				{movies.map((item) => (
-					<li key={item.id}>
-						<Link to={`${item.id}`}>{item.title}</Link>
+					<li key={item.id} movie = {item} className={classes.item}>
+						<Link to={`${item.id}`}>
+							<div>
+								<img src={item.backdrop_path != null ? 'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/' + item.backdrop_path : noImage} alt='no img' />
+							</div>
+							<div className={classes.description}>
+								<div>{item.title}</div>
+								<div>{item.vote_average}</div>
+							</div>
+						</Link>
 					</li>
 				))}
 			</ul>
-		</>
+			<div>
+				<Paginator className = {classes.paginatorWraper}
+					currentPage={currentPage}
+					onPageChanged={onPageChanged}
+					totalPagesCount={totalPagesCount}
+				/>
+			</div>
+		</div>
 	);
 };
 
-export default MoviesPage;
+
