@@ -7,15 +7,6 @@ const instance = axios.create({
 const TOKEN = 'ff9eb10038e9caac47e863dfcb7e03ca';
 const LANG = 'language=en-US';
 
-/*
-
-getMovie (movieId) {
-		return instance.get(`movies/` + movieId);	
-	},
-
-`${URL}movie/popular?api_key=${TOKEN}&${LANG}&page=${currentPage}
-*/
-
 const getMovies = (currentPage=1, moviesFilter='popular') => {
 	return instance.get('movie/popular', {
 		params: {
@@ -29,7 +20,7 @@ const getMovies = (currentPage=1, moviesFilter='popular') => {
 }
 
 const getMovie = (movieId) => {
-	return instance.get(`movie/:id`, {
+	return instance.get(`movie/${movieId}`, {
 			params: {
 				api_key: TOKEN,
 				query: LANG,
@@ -51,6 +42,17 @@ const getActors = (currentActorsPage=1) => {
 	})
 }
 
+const getActor = (actorId) => {
+	return instance.get(`person/${actorId}`, {
+		params: {
+			api_key: TOKEN,
+			query: LANG,
+		}
+	}).then(response => {
+		return response.data;
+	})	
+}
+
 export const movieAPI = {
 	getMovies,
 	getMovie,
@@ -58,4 +60,5 @@ export const movieAPI = {
 
 export const actorAPI = {
 	getActors,
+	getActor,
 }

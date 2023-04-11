@@ -25,3 +25,7 @@ export const getIsFetching= (state) => {
 export const getMoviesFilter= (state) => {
 	return state.moviesPage.moviesFilter;
 }
+
+export const getMovie= (state) => {
+	return state.moviesPage.movie;
+}

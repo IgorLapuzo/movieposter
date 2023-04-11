@@ -1,15 +1,16 @@
 .paginator {
-	margin: 1rem;
+	margin: 3rem auto;
 }
 .pageNumber {
 	cursor: pointer;
 	font-size: 1rem;
 	padding: 4px;
-	border: 1px solid grey;
+	
 }
 .pageNumber.selectedPage {
 	font-weight: bold;
-	border-color: black;
+	border: 1px solid grey;
+	
 }
 
 .buttonL {

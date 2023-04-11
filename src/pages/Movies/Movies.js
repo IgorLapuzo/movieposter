@@ -34,18 +34,16 @@ export const MoviesPage = (props) => {
 	return (
 		<div className={classes.wrapper}>
 			{ isFetching ? <Preloader /> : null }
-			<h1>The Movies page</h1>
 			<MoviesSearchForm onFilterChanged={onFilterChanged} />
-			
 			<ul className={classes['movie-list']}>
 				{movies.map((item) => (
 					<li key={item.id} movie = {item} className={classes.item}>
 						<Link to={`${item.id}`}>
 							<div>
-								<img src={item.backdrop_path != null ? 'https://www.themoviedb.org/t/p/w300_and_h450_bestv2/' + item.backdrop_path : noImage} alt='no img' />
+								<img src={item.backdrop_path != null ? 'https://www.themoviedb.org/t/p/w220_and_h330_face/' + item.poster_path : noImage} alt='no img' />
 							</div>
 							<div className={classes.description}>
-								<div>{item.title}</div>
+								<div className={classes.title}>{item.title}</div>
 								<div>{item.vote_average}</div>
 							</div>
 						</Link>

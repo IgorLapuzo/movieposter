@@ -4,7 +4,8 @@ let initialState = {
 	actors: [],
 	totalPagesCount: 1,
 	currentPage: 1,
-	isFetching: false
+	isFetching: false,
+	actor: '',
 };
 
 const actorsReducer = (state = initialState, action) => {
@@ -21,6 +22,9 @@ const actorsReducer = (state = initialState, action) => {
 		case 'TOGGLE-IS-FETCHING': {
 			return { ...state, isFetching: action.isFetching}
 		}
+		case 'SET-ACTOR': {
+			return { ...state, actor: action.actor}
+		}
 		default: 
 			return state;
 	};
@@ -30,6 +34,7 @@ export const setActors = (actors) => ({ type: 'SET-ACTORS', actors});
 export const setCurrentPage = (currentPage) => ({ type: 'SET-CURRENT-PAGE', currentPage});
 export const setTotalPagesCount = (totalPagesCount) => ({ type: 'SET-TOTAL-PAGES-COUNT', totalPagesCount});
 export const setToggleFetching = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching});
+export const setActor = (actor) => ({type: 'SET-ACTOR',actor});
 
 export const requestActors = (page) => {
 	return async (dispatch) => {
@@ -39,6 +44,13 @@ export const requestActors = (page) => {
 		dispatch(setToggleFetching(false));
 		dispatch(setActors(data.results));
 		dispatch(setTotalPagesCount(data.total_pages));
+	}
+}
+
+export const requestActor = (actorId) => {
+	return async (dispatch) => {
+		let response = await actorAPI.getActor(actorId);
+		dispatch(setActor(response));
 	}
 }
 

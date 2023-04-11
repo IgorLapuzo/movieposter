@@ -6,7 +6,7 @@ let initialState = {
 	currentPage: 1,
 	isFetching: false,
 	moviesFilter: 'popular',
-	movie: null,
+	movie: '',
 };
 
 const moviesReducer = (state = initialState, action) => {
@@ -24,7 +24,7 @@ const moviesReducer = (state = initialState, action) => {
 			return { ...state, isFetching: action.isFetching}
 		}
 		case 'SET-MOVIE': {
-			return {...state, movie: action.movie}
+			return { ...state, movie: action.movie}
 		}
 		case 'SET-MOVIES-FILTER': {
 			return { ...state, moviesFilter: action.moviesFilter}
@@ -45,16 +45,18 @@ export const requestMovies = (page) => {
 	return async (dispatch) => {
 		dispatch(setToggleFetching(true));
 		dispatch(setCurrentPage(page))
-		let data = await movieAPI.getMovies(page )
+		let data = await movieAPI.getMovies(page)
 		dispatch(setToggleFetching(false));
 		dispatch(setMovies(data.results));
 		dispatch(setTotalPagesCount(data.total_pages));
 	}
 }
 
-export const getMovie = (movieId) => async (dispatch) => {
-	let response = await movieAPI.getMovie(movieId);
-	dispatch(setMovie (response.data));
+export const requestMovie = (movieId) => {
+	return async (dispatch) => {
+		let response = await movieAPI.getMovie(movieId);
+		dispatch(setMovie(response));
+	}
 }
 
 export default moviesReducer;
