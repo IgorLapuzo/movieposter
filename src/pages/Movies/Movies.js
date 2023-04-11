@@ -5,9 +5,10 @@ import Paginator from '../../components/Paginator'
 import Preloader from '../../components/Preloader';
 import noImage from '../../assets/noImage.jpg'
 import MoviesSearchForm from '../../components/MoviesSearchForm';
-import { FilterType, requestMovies } from '../../store/MoviesReducer' 
+import { requestMovies } from '../../store/MoviesReducer' 
 import { getCurrentPage, getIsFetching, getTotalPagesCount, getMovies, getMoviesFilter } from '../../store/movies-selectors';
 import classes from './Movies.module.css'
+import MoviesFilter from '../../components/MoviesFilter';
 
 export const MoviesPage = (props) => {
 
@@ -27,14 +28,13 @@ export const MoviesPage = (props) => {
 		dispatch(requestMovies(pageNumber, filter))
 	}
 
-	const onFilterChanged = (filter) => {
-		dispatch(requestMovies(1, filter))
-	}
-
 	return (
 		<div className={classes.wrapper}>
 			{ isFetching ? <Preloader /> : null }
-			<MoviesSearchForm onFilterChanged={onFilterChanged} />
+			<div className={classes.filter}>
+				<MoviesFilter />
+				<MoviesSearchForm />
+			</div>
 			<ul className={classes['movie-list']}>
 				{movies.map((item) => (
 					<li key={item.id} movie = {item} className={classes.item}>

@@ -2,7 +2,7 @@ body {
   margin: 0;
   box-sizing: border-box;
   border: none;
-  background-image: linear-gradient(100deg, #fff, #d4f1ff);
+  background-image: linear-gradient(100deg, #d4f1ff, #062e3f);
 }
 
 ul {

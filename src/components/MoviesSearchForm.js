@@ -1,8 +1,14 @@
-const MoviesSearchForm = () => {
+import classes from './MoviesSearchForm.module.css'
+
+const MoviesSearchForm = (props) => {
 	return (
-		<p>
-			searchForm
-		</p>
+		<div className={classes.control}>
+			<input 
+				placeholder='Search...'
+				type='text'
+				onChange={props.searchChangeHandler}
+			/>
+		</div>
 	)
 }
 

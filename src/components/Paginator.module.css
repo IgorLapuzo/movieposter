@@ -9,7 +9,7 @@
 }
 .pageNumber.selectedPage {
 	font-weight: bold;
-	border: 1px solid grey;
+	border: 1px solid #fff;
 	
 }
 
@@ -18,7 +18,7 @@
 	width: 4rem;
 	height: 2rem;
 	border-radius: 15px 0 0 15px;
-	border: 1px solid #fff;
+	border: none;
 	background: #052d6e;
 	color: #fff;
 }
@@ -36,7 +36,7 @@
 	width: 4rem;
 	height: 2rem;
 	border-radius: 0 15px 15px 0;
-	border: 1px solid #fff;
+	border: none;
 	background: #052d6e;
 	color: #fff;
 }

@@ -8,7 +8,7 @@ const TOKEN = 'ff9eb10038e9caac47e863dfcb7e03ca';
 const LANG = 'language=en-US';
 
 const getMovies = (currentPage=1, moviesFilter='popular') => {
-	return instance.get('movie/popular', {
+	return instance.get(`movie/${moviesFilter}`, {
 		params: {
 			api_key: TOKEN,
 			query: LANG,

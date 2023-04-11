@@ -41,11 +41,11 @@ export const setToggleFetching = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', 
 export const setMovie = (movie) => ({type: 'SET-MOVIE', movie});
 export const setMoviesFilter = (moviesFilter) => ({ type: 'SET-MOVIES-FILTER', moviesFilter});
 
-export const requestMovies = (page) => {
+export const requestMovies = (page, moviesFilter) => {
 	return async (dispatch) => {
 		dispatch(setToggleFetching(true));
 		dispatch(setCurrentPage(page))
-		let data = await movieAPI.getMovies(page)
+		let data = await movieAPI.getMovies(page, moviesFilter)
 		dispatch(setToggleFetching(false));
 		dispatch(setMovies(data.results));
 		dispatch(setTotalPagesCount(data.total_pages));
