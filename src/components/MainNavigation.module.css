@@ -9,11 +9,11 @@
 .list {
   display: flex;
   gap: 1rem;
-	
 }
 
 .list a {
   text-decoration: none;
+  color: #000;
 }
 
 .list a:hover,

@@ -16,11 +16,9 @@ const SearchForm = (props) => {
 	useEffect(() => {
 			const request = setTimeout(() => {
 				dispatch(requestMovies(1, value))
-				console.log(`dispatch input`)
 			},1000)
 		
 		return () => {
-			console.log('cleared')
 			clearTimeout(request);
 		}
 	}, [value])
@@ -31,7 +29,7 @@ const SearchForm = (props) => {
 				placeholder='Search...'
 				type='text'
 				value={value}
-				 onChange={onInputChanged}
+				onChange={onInputChanged}
 			/>
 		</div>
 	)
