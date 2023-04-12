@@ -53,6 +53,18 @@ const getActor = (actorId) => {
 	})	
 }
 
+const getSearchMovies = (currentPage=1, input) => {
+	return instance.get('search/multi', {
+		params: {
+			query: input,
+			api_key: TOKEN,
+			page: currentPage,
+		}
+	}).then(response => {
+		return response.data;
+	})
+}
+
 export const movieAPI = {
 	getMovies,
 	getMovie,
@@ -61,4 +73,8 @@ export const movieAPI = {
 export const actorAPI = {
 	getActors,
 	getActor,
+}
+
+export const searchAPI = {
+	getSearchMovies,
 }

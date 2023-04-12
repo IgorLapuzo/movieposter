@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Paginator from '../../components/Paginator';
 import Preloader from '../../components/Preloader';
-import MoviesSearchForm from '../../components/MoviesSearchForm';
 import noImage from '../../assets/noImage.jpg'
 import { requestActors } from '../../store/ActorsReducer' 
 import { getCurrentPage, getIsFetching, getTotalPagesCount, getActors } from '../../store/actors-selectors';
@@ -28,9 +27,6 @@ export const ActorsPage = (props) => {
 	return (
 		<div className={classes.wrapper}>
 			{ isFetching ? <Preloader /> : null }
-			<div className={classes.filter}>
-				<MoviesSearchForm />
-			</div>
 			<ul className={classes['movie-list']}>
 				{actors.map((item) => (
 					<li key={item.id} actor = {item} className={classes.item}>

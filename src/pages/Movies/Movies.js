@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Paginator from '../../components/Paginator'
 import Preloader from '../../components/Preloader';
 import noImage from '../../assets/noImage.jpg'
-import MoviesSearchForm from '../../components/MoviesSearchForm';
 import { requestMovies } from '../../store/MoviesReducer' 
 import { getCurrentPage, getIsFetching, getTotalPagesCount, getMovies, getMoviesFilter } from '../../store/movies-selectors';
 import classes from './Movies.module.css'
@@ -17,7 +16,6 @@ export const MoviesPage = (props) => {
 	const currentPage = useSelector(getCurrentPage)
 	const filter = useSelector(getMoviesFilter)
 	const isFetching = useSelector(getIsFetching)
-
 	const dispatch = useDispatch()
 
 	useEffect(() => {
@@ -33,7 +31,6 @@ export const MoviesPage = (props) => {
 			{ isFetching ? <Preloader /> : null }
 			<div className={classes.filter}>
 				<MoviesFilter />
-				<MoviesSearchForm />
 			</div>
 			<ul className={classes['movie-list']}>
 				{movies.map((item) => (
@@ -60,5 +57,3 @@ export const MoviesPage = (props) => {
 		</div>
 	);
 };
-
-

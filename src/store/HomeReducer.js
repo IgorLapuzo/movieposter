@@ -1,17 +1,17 @@
-import { actorAPI } from '../api/api';
+import { searchAPI } from '../api/api';
 
 let initialState = {
-	actors: [],
+	movies: [],
 	totalPagesCount: 1,
 	currentPage: 1,
 	isFetching: false,
-	actor: '',
+	input: '',
 };
 
-const actorsReducer = (state = initialState, action) => {
+const homeReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET-ACTORS': {
-			return { ...state, actors: action.actors }
+		case 'SET-MOVIES': {
+			return { ...state, movies: action.movies }
 		}
 		case 'SET-CURRENT-PAGE': {
 			return { ...state, currentPage: action.currentPage}
@@ -22,36 +22,29 @@ const actorsReducer = (state = initialState, action) => {
 		case 'TOGGLE-IS-FETCHING': {
 			return { ...state, isFetching: action.isFetching}
 		}
-		case 'SET-ACTOR': {
-			return { ...state, actor: action.actor}
+		case 'SET-INPUT': {
+			return { ...state, input: action.input}
 		}
 		default: 
 			return state;
 	};
 }; 
 
-export const setActors = (actors) => ({ type: 'SET-ACTORS', actors});
+export const setMovies = (movies) => ({ type: 'SET-MOVIES', movies});
 export const setCurrentPage = (currentPage) => ({ type: 'SET-CURRENT-PAGE', currentPage});
 export const setTotalPagesCount = (totalPagesCount) => ({ type: 'SET-TOTAL-PAGES-COUNT', totalPagesCount});
 export const setToggleFetching = (isFetching) => ({ type: 'TOGGLE-IS-FETCHING', isFetching});
-export const setActor = (actor) => ({type: 'SET-ACTOR',actor});
+export const setInput = (input) => ({type: 'SET-INPUT', input});
 
-export const requestActors = (page) => {
+export const requestMovies = (page, input) => {
 	return async (dispatch) => {
 		dispatch(setToggleFetching(true));
 		dispatch(setCurrentPage(page))
-		let data = await actorAPI.getActors(page)
+		let data = await searchAPI.getSearchMovies(page, input)
 		dispatch(setToggleFetching(false));
-		dispatch(setActors(data.results));
+		dispatch(setMovies(data.results));
 		dispatch(setTotalPagesCount(data.total_pages));
 	}
 }
 
-export const requestActor = (actorId) => {
-	return async (dispatch) => {
-		let response = await actorAPI.getActor(actorId);
-		dispatch(setActor(response));
-	}
-}
-
-export default actorsReducer;
+export default homeReducer;
